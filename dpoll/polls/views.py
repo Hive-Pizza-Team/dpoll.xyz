@@ -609,7 +609,7 @@ def vote_transaction_details(request):
     parent_author = poll.username
     parent_permlink = poll.permlink
     json_metadata = {
-        "tags": settings.DEFAULT_TAGS,
+        "tags": settings.DEFAULT_TAGS[0:1],
         "app": f"dpoll/{settings.DPOLL_APP_VERSION}",
         "content_type": "poll_vote",
         "votes": [c.text.strip() for c in choice_instances],
@@ -620,10 +620,10 @@ def vote_transaction_details(request):
         "permlink": permlink,
         "title": "",
         "body": body,
-        "json_metadata": json_metadata,
+        "json_metadata": json.dumps(json_metadata),
         "parent_username": parent_author,
         "parent_permlink": parent_permlink,
-        "comment_options": "",
+        "comment_options": '',
     })
 
 
@@ -636,7 +636,7 @@ def sync_vote(request):
     except (TypeError, ValueError):
         return HttpResponse('Invalid block ID', status=400)
 
-    c = LightsteemClient(nodes=["https://api.hivekings.com"])
+    c = LightsteemClient(nodes=["https://api.hive.blog"])
     block_data = c.get_block(block_num)
     if not block_data:
         # block data may return null if it's invalid
