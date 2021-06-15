@@ -16,11 +16,11 @@ from .api_views import (
 
 api_router = routers.DefaultRouter()
 api_router.register(r'questions', QuestionViewSet,
-                base_name='poll_view_set')
+                basename='poll_view_set')
 api_router.register(r'users', UserViewSet,
-                base_name='user_view_set')
-api_router.register(r'team', TeamView, base_name='team')
-api_router.register(r'sponsors', SponsorViewSet, base_name='sponsors')
+                basename='user_view_set')
+api_router.register(r'team', TeamView, basename='team')
+api_router.register(r'sponsors', SponsorViewSet, basename='sponsors')
 
 urlpatterns = [
     path('', views.index, name='index'),
