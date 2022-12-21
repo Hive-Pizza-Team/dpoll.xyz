@@ -13,6 +13,7 @@ from lightsteem.helpers.account import Account
 from lightsteem.helpers.amount import Amount
 from prettytable import PrettyTable
 from communities.models import Community
+from django.utils.safestring import mark_safe
 
 
 SA_STAKE_LIMIT = 500000000
@@ -279,7 +280,7 @@ class Question(models.Model):
                                 user.account_age
                             ]
                         )
-
+        data = mark_safe(data.get_html_string())
         return HttpResponse(f"<pre>{data}</pre>")
 
 
